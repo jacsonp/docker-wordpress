@@ -22,6 +22,25 @@
     define('WP_DEBUG_LOG',     getenv('WORDPRESS_DEBUG_LOG')     === 'true');
     define('WP_DEBUG_DISPLAY', getenv('WORDPRESS_DEBUG_DISPLAY') === 'true');
 
+    define('WP_ALLOW_MULTISITE', getenv('WORDPRESS_MULTISITE') === 'true');
+
+    if(getenv('WORDPRESS_MULTISITE_INSTALLED') === 'true')
+    {
+        define('MULTISITE', true);
+        define('SUBDOMAIN_INSTALL', true);
+        define('DOMAIN_CURRENT_SITE', getenv('WORDPRESS_BASEURL') ?: 'example.com');
+        define('PATH_CURRENT_SITE', '/');
+        define('SITE_ID_CURRENT_SITE', 1);
+        define('BLOG_ID_CURRENT_SITE', 1);
+        /**
+          *      Redirect to page below when user try to access
+          *      a subdomain that doesn't exist.
+          */
+        define('NOBLOGREDIRECT', getenv('WORDPRESS_NOBLOGREDIRECT') ?: getenv('WORDPRESS_BASEURL') ?: 'example.com');
+
+        if(@file_exists('wp-content/sunrise.php') || ( defined('ABSPATH') && @file_exists('ABSPATH'.'wp-content/sunrise.php') ) define( 'SUNRISE', 'on' );
+    }
+    
     if ( !WP_DEBUG_LOG ) {
         ini_set('log_errors', 1);
         ini_set('error_log', 'php://stderr');

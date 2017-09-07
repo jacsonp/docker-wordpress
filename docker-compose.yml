@@ -8,6 +8,10 @@ services:
       - WORDPRESS_DB_USER=the_db_user
       - WORDPRESS_DB_PASSWORD=the_db_pass
       - WORDPRESS_DB_NAME=the_db_name
+      - WORDPRESS_MULTISITE=false
+      - WORDPRESS_MULTISITE_INSTALLED=false
+      - WORDPRESS_BASEURL=the_base_network_url
+      - WORDPRESS_NOBLOGREDIRECT=the_url_of_no_blog
     ports:
       - "80:80"
 
